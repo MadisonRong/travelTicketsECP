@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226153553) do
+ActiveRecord::Schema.define(version: 20150226155001) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "account",         limit: 255
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(version: 20150226153553) do
     t.integer  "sys_admin_id",       limit: 4
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+  end
+
+  create_table "scenic_types", force: :cascade do |t|
+    t.string   "name",       limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "scenics", force: :cascade do |t|
+    t.string   "name",           limit: 255, null: false
+    t.string   "picture",        limit: 255, null: false
+    t.string   "manager_name",   limit: 255, null: false
+    t.string   "manager_number", limit: 255, null: false
+    t.integer  "sys_admin_id",   limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "tickets", force: :cascade do |t|
