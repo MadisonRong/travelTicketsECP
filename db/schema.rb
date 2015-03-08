@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226175802) do
+ActiveRecord::Schema.define(version: 20150307072134) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "account",         limit: 255
@@ -20,7 +20,10 @@ ActiveRecord::Schema.define(version: 20150226175802) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "admin_type",      limit: 255
+    t.string   "remember_token",  limit: 255
   end
+
+  add_index "admins", ["account"], name: "index_admins_on_account", unique: true, using: :btree
 
   create_table "businesses", force: :cascade do |t|
     t.string   "name",               limit: 255,             null: false
@@ -31,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150226175802) do
     t.integer  "sys_admin_id",       limit: 4
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.integer  "admin_id",           limit: 4
   end
 
   create_table "menu_item_roles", force: :cascade do |t|
@@ -89,7 +93,7 @@ ActiveRecord::Schema.define(version: 20150226175802) do
     t.string   "picture",        limit: 255, null: false
     t.string   "manager_name",   limit: 255, null: false
     t.string   "manager_number", limit: 255, null: false
-    t.integer  "sys_admin_id",   limit: 4
+    t.integer  "business_id",    limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.datetime "start_time"

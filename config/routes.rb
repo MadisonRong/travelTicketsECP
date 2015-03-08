@@ -1,5 +1,27 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  #mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  get 'admins/login' => 'admins#login'
+  get 'admins/logout' => 'sessions#destroy'
+  get 'admins/list' => 'admins#list'
+  post 'admins/update' => 'admins#admin_update'
+  get 'admins/workload' => 'admins#admin_statistics_workload'
+  get 'admins/jsonworkload' => 'admins#admin_workload_json'
+  get 'admins/jsonlist' => 'admins#jsonlist'
+  get 'admins/commodity/status_list' => 'commodity#status_list'
+  get 'admins/commodity/json_status_list' => 'commodity#json_status_list'
+  post 'admins/commodity/update' => 'commodity#update'
+  get 'admins/businesses/status_list' => 'businesses#status_list'
+  get 'admins/businesses/json_status_list' => 'businesses#json_status_list'
+  get 'admins/businesses/list' => 'businesses#list'
+  get 'admins/businesses/json_list' => 'businesses#json_list'
+  get 'admins/businesses/statistics' => 'businesses#statistics'
+  get 'admins/businesses/json_statistics' => 'businesses#json_statistics'
+  namespace :admins do
+
+  end
+  resources :admins
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
