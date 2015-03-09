@@ -8,7 +8,12 @@ class CommodityController < ApplicationController
 	end
 
 	def json_status_list
-		@commodity=Ticket.find_by_sql(["select a.id,a.`name`,a.price,b.name scenic,a.description,a.ticket_type,a.created_at from tickets a join scenics b on a.scenic_id=b.id where a.status=0 and sys_admin_id=?", current_admin.id])
+		@page=params[:page]
+		@rows=params[:rows]
+		@sort_column=params[:sidx]
+		@sort=params[:sord]
+		@commodity_hash=Ticket.new.get_json_status_list(current_admin.id, @page, @rows, @sort_column, @sort)
+		render json: @commodity_hash
 	end
 
 	def update

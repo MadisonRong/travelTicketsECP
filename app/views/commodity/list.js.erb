@@ -21,7 +21,7 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 						{name:'id',index:'id', width:60, sorttype:"int", editable: false, sortable: true},
 						{name:'name',index:'name',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
 						{name:'price',index:'price', width:60, sorttype:"float", editable: true, sortable: true},
-						{name:'scenic',index:'scenic',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
+						{name:'scenic',index:'scenic',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true,edittype:"select",editoptions:{dataUrl:"<%= admins_scenics_type_path %>"}},
 						{name:'description',index:'description',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
 						{name:'ticket_type',index:'ticket_type', width:60, sorttype:"int", editable: false, sortable: true, 
 							formatter:function(value){

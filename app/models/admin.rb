@@ -1,6 +1,23 @@
 class Admin < ActiveRecord::Base
 	has_secure_password
 	before_create :create_remember_token
+	def get_admins(type, page, rows, sort_column, sort)
+		sort_column="id" if sort_column.nil? && sort_column==""
+		case sort
+		when "asc"
+			@admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column)
+		when "desc"
+			@admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column).reverse_order
+		end
+		@admins_count=Admin.where(admin_type: type)
+		@admins_hash=Hash.new
+		@admins_hash[:records]=@admins_count.size
+		@admins_hash[:total]=(@admins_count.size / rows.to_i)+1
+		@admins_hash[:page]=page
+		@admins_hash[:rows]=@admins
+		return @admins_hash
+	end
+
 	def admin_workload_json(type)
 		@admins=Array.new
 		case type

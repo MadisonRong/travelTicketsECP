@@ -83,8 +83,8 @@ class AdminsController < ApplicationController
 	end
 
 	def jsonlist
-		@admins=Admin.where(admin_type: params[:type])
-		#render json: @admins
+		@admins_hash=Admin.new.get_admins(params[:type], params[:page], params[:rows], params[:sidx], params[:sord])
+		render json: @admins_hash
 	end
 
 	def admin_workload_json

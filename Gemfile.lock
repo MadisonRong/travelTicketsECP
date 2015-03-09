@@ -195,6 +195,7 @@ DEPENDENCIES
   faker (= 1.1.2)
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   mysql2
   pry
   rails (= 4.2.0)
