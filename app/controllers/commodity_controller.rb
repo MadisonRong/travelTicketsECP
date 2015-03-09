@@ -17,6 +17,6 @@ class CommodityController < ApplicationController
 	end
 
 	def update
-		render nothing: false
+		render nothing: true
 	end
 end

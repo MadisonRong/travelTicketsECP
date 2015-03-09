@@ -6,7 +6,7 @@ class ScenicsController < ApplicationController
 			@result_text+="#{type.id}:#{type.name};"
 		end
 		@result_text+="\""
-		#render plain: @result_text
+		render plain: "\"1:123;2:456;3:789;4:00\""
 =begin
 		respond_to do |format|
 			format.html { render template: 'scenics/scenics_option.json.jbuilder' }
