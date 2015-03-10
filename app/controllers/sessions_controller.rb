@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+	before_action :signed_in_admin, only:[:destroy]
 	def create
 		admin = Admin.find_by(account: params[:session][:account])
 		if admin && admin.authenticate(params[:session][:password])
