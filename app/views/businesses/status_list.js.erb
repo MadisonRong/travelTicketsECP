@@ -7,31 +7,23 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 				var pager_selector = "#grid-pager";
 			
 				jQuery(grid_selector).jqGrid({
-					url: '<%= admins_commodity_json_status_list_url %>',
+					url: '<%= admins_businesses_json_status_list_url %>',
 					mType: 'get',
 					datatype: 'json',
 					height: '100%',
 					autowidth: true,
 					loadui: 'block',
-					editurl: '<%= admins_commodity_update_path %>',
-					caption: "审核商品",
-					colNames:['id','门票名称','价格','景区','描述','门票类型','创建时间'],
+					editurl: '<%= admins_businesses_pass_path %>',
+					caption: "审核商家",
+					colNames:['id','商家名称','营业执照','法人名称','法人照片','创建时间'],
 					colModel:[
 						{name:'id',index:'id', width:60, sorttype:"int", editable: false, sortable: true},
 						{name:'name',index:'name',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
-						{name:'price',index:'price', width:60, sorttype:"float", editable: true, sortable: true},
-						{name:'scenic',index:'scenic',width:90, editable:true, sortable: true},
-						{name:'description',index:'description',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
-						{name:'ticket_type',index:'ticket_type', width:60, sorttype:"int", editable: false, sortable: true, 
-							formatter:function(value){
-								if (value=1) { return '漂流'; }
-								if (value=2) { return '滑雪'; }
-								if (value=3) { return '游乐场'; }
-								if (value=4) { return '温泉'; }
-								if (value=5) { return '名山胜水'; }
-								if (value=6) { return '古镇'; };
-							}},
-						{name:'created_at',index:'created_at', width:150,editable: false, sorttype:"date",unformat: pickDate, sortable: true}
+						{name:'operating_license',index:'operating_license', width:60, hidden: false, editable: true, sortable: true,
+						 edittype: "image"},
+						{name:'legal_person_name',index:'legal_person_name',width:90, editable:true, sortable: true},
+						{name:'legal_person_photo',index:'legal_person_photo',width:90, hidden: false, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
+						{name:'created_at',index:'created_at', width:150,editable: false, sorttype:"date", format: pickDate, sortable: true}
 					], 
 			
 					viewrecords : true,
@@ -186,7 +178,7 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 					buttons.addClass('btn btn-sm').find('[class*="-icon"]').remove();//ui-icon, s-icon
 					buttons.eq(0).addClass('btn-danger').prepend('<i class="icon-trash"></i>');
 					buttons.eq(1).prepend('<i class="icon-remove"></i>');
-					$('.ui-jqdialog-title').eq(0).html("审核商品");
+					$('.ui-jqdialog-title').eq(0).html("审核商家");
 					$('.delmsg').html("你确定要通过审核吗？");
 					console.log($('#dData'));
 					$('#dData').html("<i class=\"icon-trash\"></i>Yes");

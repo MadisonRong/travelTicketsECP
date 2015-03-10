@@ -7,21 +7,23 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 				var pager_selector = "#grid-pager";
 			
 				jQuery(grid_selector).jqGrid({
-					url: '<%= admins_jsonlist_url %>',
-					postData: {"type" : "1"},
+					url: '<%= admins_businesses_json_list_url %>',
 					mType: 'get',
 					datatype: 'json',
 					height: '100%',
 					autowidth: true,
 					loadui: 'block',
-					editurl: '<%= admins_update_path %>',
-					caption: "管理平台管理员",
-					colNames:['id','管理员账号','管理员名字','创建时间'],
+					editurl: '<%= admins_businesses_update_path %>',
+					caption: "管理商家",
+					colNames:['id','商家名称','营业执照','法人名称','法人照片','创建时间'],
 					colModel:[
 						{name:'id',index:'id', width:60, sorttype:"int", editable: false, sortable: true},
-						{name:'account',index:'account', width:60, sorttype:"int", editable: true, sortable: true},
 						{name:'name',index:'name',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
-						{name:'created_at',index:'created_at', width:150,editable: false, sorttype:"date",unformat: pickDate, sortable: true}
+						{name:'operating_license',index:'operating_license', width:60, hidden: false, editable: true, sortable: true,
+						 edittype: "image"},
+						{name:'legal_person_name',index:'legal_person_name',width:90, editable:true, sortable: true},
+						{name:'legal_person_photo',index:'legal_person_photo',width:90, hidden: false, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
+						{name:'created_at',index:'created_at', width:150,editable: false, sorttype:"date", format: pickDate, sortable: true}
 					], 
 			
 					viewrecords : true,
@@ -75,7 +77,7 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 					{ 	//navbar options
 						edit: true,
 						editicon : 'icon-pencil blue',
-						add: true,
+						add: false,
 						addicon : 'icon-plus-sign purple',
 						del: true,
 						delicon : 'icon-trash red',
@@ -175,7 +177,7 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 					var buttons = form.next().find('.EditButton .fm-button');
 					buttons.addClass('btn btn-sm').find('[class*="-icon"]').remove();//ui-icon, s-icon
 					buttons.eq(0).addClass('btn-danger').prepend('<i class="icon-trash"></i>');
-					buttons.eq(1).prepend('<i class="icon-remove"></i>')
+					buttons.eq(1).prepend('<i class="icon-remove"></i>');
 				}
 				
 				function style_search_filters(form) {

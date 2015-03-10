@@ -14,7 +14,7 @@ class AdminsController < ApplicationController
 	end
 
 	def update
-		@admin=Admin.find(params[:id])
+		admin=Admin.find(params[:id])
 		@result=false
 		#update admin name
 		name=params[:admin][:name]
@@ -27,9 +27,9 @@ class AdminsController < ApplicationController
 		password_new=params[:admin][:password_new]
 		password_new_confirmation=params[:admin][:password_new_confirmation]
 		unless password_old.nil? && password_new.nil? && password_new_confirmation.nil?
-			if password_new==password_new_confirmation && @admin.authenticate(password_old)
+			if password_new==password_new_confirmation && admin.authenticate(password_old)
 				#generate new password for admin accroding to given from front-end
-				@admin.update_attribute(:password_digest, BCrypt::Password.create(password_new))
+				admin.update_attribute(:password_digest, BCrypt::Password.create(password_new))
 				@result=true
 			end
 		end
@@ -46,18 +46,18 @@ class AdminsController < ApplicationController
 			#update admin name
 			name=params[:name]
 			unless name.nil? 
-				@admin.update_attribute(:name, name)
+				admin.update_attribute(:name, name)
 				@result=true
 			end
 		when 'add'
 			#create admin
-			@admin=Admin.new
-			@admin.account=params[:account]
-			@admin.name=params[:name]
+			admin=Admin.new
+			admin.account=params[:account]
+			admin.name=params[:name]
 			#platform_admin (admin_type is 1)
-			@admin.admin_type=1
+			admin.admin_type=1
 			#default password is 123456
-			@admin.password_digest=BCrypt::Password.create("123456")
+			admin.password_digest=BCrypt::Password.create("123456")
 			@result=@admin.save
 		when 'del'
 			#delete admin

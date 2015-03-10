@@ -12,4 +12,9 @@ class Ticket < ActiveRecord::Base
 		@commodity_hash[:rows]=@commodity
 		return @commodity_hash
 	end
+
+	def get_pass(id)
+		ticket=Ticket.find(id)
+		ticket.update_attribute(:status, 1)
+	end
 end

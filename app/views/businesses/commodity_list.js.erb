@@ -8,6 +8,7 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 			
 				jQuery(grid_selector).jqGrid({
 					url: '<%= admins_commodity_json_status_list_url %>',
+					postData: {"type" : "1"},
 					mType: 'get',
 					datatype: 'json',
 					height: '100%',
@@ -20,7 +21,25 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 						{name:'id',index:'id', width:60, sorttype:"int", editable: false, sortable: true},
 						{name:'name',index:'name',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
 						{name:'price',index:'price', width:60, sorttype:"float", editable: true, sortable: true},
-						{name:'scenic',index:'scenic',width:90, editable:true, sortable: true},
+						{name:'scenic',index:'scenic',width:90, editable:true, sortable: true,
+						edittype:"select",editoptions:{
+							size:"20",maxlength:"30",
+							dataUrl:"<%= admins_scenics_type_path %>",
+							buildSelect: function (data) {
+								data=JSON.parse(data);
+						             var s = "<select>", i, l, item;
+						             if (data != null && data.length) {
+						                 for (i = 0, l = data.length; i < l; i++) {
+						                     item = data[i];
+						                     s += '<option value="' + item.key + '">' +
+						                             item.value + '</option>';
+						                 }
+						             }
+						             return s + "</select>";
+						        }
+					        },
+					        ajaxSelectOptions: { dataType: "json" }
+							},
 						{name:'description',index:'description',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
 						{name:'ticket_type',index:'ticket_type', width:60, sorttype:"int", editable: false, sortable: true, 
 							formatter:function(value){

@@ -1,12 +1,7 @@
 class ScenicsController < ApplicationController
 	def scenics_option
 		@scenic_types=ScenicType.new.get_options
-		@result_text="value:\""
-		@scenic_types.each do |type|
-			@result_text+="#{type.id}:#{type.name};"
-		end
-		@result_text+="\""
-		# render plain: "\"1:123;2:456;3:789;4:00\""
+		# render plain: "[{\"key\":1,\"value\":\"123\"},{\"key\":2,\"value\":\"456\"},{\"key\":3,\"value\":\"789\"},{\"key\":4,\"value\":\"00\"}]"
 =begin
 		respond_to do |format|
 			format.html { render template: 'scenics/scenics_option.json.jbuilder' }
