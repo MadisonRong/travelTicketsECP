@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
 	require 'bcrypt'
-	before_action :signed_in_admin, only:[:index, :list]
+	before_action :signed_in_admin, only:[:index, :list, :logout]
 	def index
 		@menu=Menu.get_menu current_admin.admin_type
 		#render json: menu
