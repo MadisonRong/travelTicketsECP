@@ -42,7 +42,7 @@ def make_admins
 			admin_id: bussiness_admin.id,
 			operating_license: "/assets/user.jpg",
 			legal_person_name: "Fat.new",
-			legal_person_photo: "123456#{n}",
+			legal_person_photo: "/assets/avatar#{rand(4)+1}.png",
 			business_status: 0,
 			sys_admin_id: (n%3)+2
 			)

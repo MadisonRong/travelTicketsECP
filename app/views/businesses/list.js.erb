@@ -18,11 +18,16 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 					colNames:['id','商家名称','营业执照','法人名称','法人照片','创建时间'],
 					colModel:[
 						{name:'id',index:'id', width:60, sorttype:"int", editable: false, sortable: true},
-						{name:'name',index:'name',width:90, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
-						{name:'operating_license',index:'operating_license', width:60, hidden: false, editable: true, sortable: true,
-						 edittype: "image"},
+						{name:'name',index:'name',width:90, editable:true, sortable: true},
+						{name:'operating_license',index:'operating_license', width:60, editable: true, sortable: true,
+						  hidden: true, edittype: "image",
+							editoptions: {size:"20",maxlength:"30",src: ""},
+							editrules: {edithidden: true}},
 						{name:'legal_person_name',index:'legal_person_name',width:90, editable:true, sortable: true},
-						{name:'legal_person_photo',index:'legal_person_photo',width:90, hidden: false, editable:true,editoptions:{size:"20",maxlength:"30"}, sortable: true},
+						{name:'legal_person_photo',index:'legal_person_photo',width:90, editable:true, sortable: true,
+							hidden: true, edittype: "image", 
+							editoptions:{size:"20",maxlength:"30", src: ""}, 
+              editrules: {edithidden: true}},
 						{name:'created_at',index:'created_at', width:150,editable: false, sorttype:"date", format: pickDate, sortable: true}
 					], 
 			
@@ -96,7 +101,28 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 							var form = $(e[0]);
 							form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
 							style_edit_form(form);
-						}
+						},
+						beforeInitData: function (e) {
+              var $self = $(this);
+
+              //operating_license
+              cm = $self.jqGrid("getColProp", "operating_license");
+              selRowId = $self.jqGrid("getGridParam", "selrow");
+              cellvalue=$self.jqGrid("getCell", selRowId, 2);
+              cm.editoptions.src = cellvalue;
+
+              //legal_person_photo
+              cm = $self.jqGrid("getColProp", "legal_person_photo");
+              selRowId = $self.jqGrid("getGridParam", "selrow");
+              cellvalue=$self.jqGrid("getCell", selRowId, 4);
+              cm.editoptions.src = cellvalue;
+            },
+            afterclickPgButtons: function (e) {
+             	console.log(e);
+              var $self = $(this),
+                  selRowId = $self.jqGrid("getGridParam", "selrow");
+              $("#flag").attr("src", "http://www.ok-soft-gmbh.com/img/flag_" + selRowId + ".gif");
+            }
 					},
 					{
 						//new record form
@@ -171,6 +197,14 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 					buttons.find('.ui-icon').remove();
 					buttons.eq(0).append('<i class="icon-chevron-left"></i>');
 					buttons.eq(1).append('<i class="icon-chevron-right"></i>');		
+
+					// var $self = $(this);
+     //      cm = $self.jqGrid("getColProp", "flag");
+     //      selRowId = $self.jqGrid("getGridParam", "selrow");
+     //      cellvalue=$self.jqGrid("getCell", selRowId, 2);
+     //      console.log(cellvalue);
+     //      console.log(selRowId);
+     //      $("#operating_license").replaceWith(cellvalue);
 				}
 			
 				function style_delete_form(form) {
