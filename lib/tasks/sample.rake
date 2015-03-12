@@ -2,8 +2,10 @@ namespace :db do
 	desc "fill some sample data"
 	task sample: :environment do
 		make_admins
+    make_users
 		make_scenics_and_tickets
 		make_scenic_and_tickets_type
+		make_orders
 		make_menu
 	end
 end
@@ -57,7 +59,7 @@ def make_scenics_and_tickets
 			picture: "",
 			manager_name: "Fat.new",
 			manager_number: "123456789123456789",
-			business_id: n
+			business_id: n+1
 			)
 		ticket=Ticket.create!(
 			name: name,
@@ -67,7 +69,8 @@ def make_scenics_and_tickets
 			description: "",
 			ticket_type: (n%3)+1,
 			status: 0,
-			sys_admin_id: (n%3)+2
+			sys_admin_id: (n%3)+2,
+			business_id: n+1
 			)
 	end
 end
@@ -83,6 +86,33 @@ def make_scenic_and_tickets_type
 	scenic_type2=ScenicType.create!(name: "自助游")
 	scenic_type3=ScenicType.create!(name: "出境游")
 	scenic_type4=ScenicType.create!(name: "游轮")
+end
+
+def make_orders
+	990.times do |n|
+		order = Order.create!(
+      uid: rand(99)+1,
+      money: 1,
+      ticket_id: rand(99)+1,
+      status: 0,
+      user_number: 1,
+      business_id: rand(99)+1
+			)
+	end
+end
+
+def make_users
+  99.times do |n|
+    name = Faker::Name.name
+    user = User.create!(
+      account: "123456#{n}",
+      name: name,
+      password: "123456",
+      password_confirmation: "123456",
+      phone: "123456789#{n}",
+      user_identity: 0
+      )
+  end
 end
 
 def make_menu
@@ -101,8 +131,8 @@ def make_menu
 	platform_admin_menu_role3=MenuRole.create(menu_id: platform_admin_menu3.id, role_id: 1)
 	platform_admin_menu_role4=MenuRole.create(menu_id: platform_admin_menu4.id, role_id: 1)
 	#创建商家菜单
-	business_menu1=Menu.create(pid: 0, name: "管理商品", link: "#")
-	business_menu2=Menu.create(pid: 0, name: "统计订单", link: "#")
+	business_menu1=Menu.create(pid: 0, name: "管理商品", link: "/admins/commodity/list")
+	business_menu2=Menu.create(pid: 0, name: "统计订单", link: "/admins/orders/statistics")
 	business_menu_role1=MenuRole.create(menu_id: business_menu1.id, role_id: 2)
 	business_menu_role2=MenuRole.create(menu_id: business_menu2.id, role_id: 2)
 end
