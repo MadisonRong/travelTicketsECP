@@ -43,7 +43,7 @@ $(function () {
 		//异步请求数据
                 $.ajax({
                     type:"GET",
-                    url:'<%= admins_jsonworkload_path+"?type=0" %>',//提供数据的Servlet
+                    url:'<%= admins_jsonworkload_path+"?type=0" %>',
                     success:function(data){
                         //设置数据
                         charts1.series[0].setData(data);  
@@ -96,7 +96,7 @@ $(function () {
 		//异步请求数据
                 $.ajax({
                     type:"GET",
-                    url:'<%= admins_jsonworkload_path+"?type=1" %>',//提供数据的Servlet
+                    url:'<%= admins_jsonworkload_path+"?type=1" %>',
                     success:function(data){
                         //设置数据
                         charts2.series[0].setData(data);  

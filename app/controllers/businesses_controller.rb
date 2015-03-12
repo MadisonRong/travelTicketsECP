@@ -65,4 +65,21 @@ class BusinessesController < ApplicationController
 			format.js  { render 'shared/op_result' }
 		end
 	end
+
+  def statistics
+    @businesses = Business.new.count_business
+    @categories = ""
+    1.upto(@businesses.length) do |n|
+    	@categories += n.to_s
+    	if n < @businesses.length
+    		@categories += ","
+    	end
+    end
+  end
+
+  def json_statistics
+    @businesses = Business.new.count_business
+    # binding.pry
+    render json: @businesses
+  end
 end

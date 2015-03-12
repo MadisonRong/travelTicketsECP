@@ -5,30 +5,30 @@ class Admin < ActiveRecord::Base
 		sort_column="id" if sort_column.nil? && sort_column==""
 		case sort
 		when "asc"
-			@admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column)
+			admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column)
 		when "desc"
-			@admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column).reverse_order
+			admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column).reverse_order
 		end
-		@admins_count=Admin.where(admin_type: type)
-		@admins_hash=Hash.new
-		@admins_hash[:records]=@admins_count.size
-		@admins_hash[:total]=(@admins_count.size / rows.to_i)+1
-		@admins_hash[:page]=page
-		@admins_hash[:rows]=@admins
-		return @admins_hash
+		admins_count=Admin.where(admin_type: type)
+		admins_hash=Hash.new
+		admins_hash[:records]=admins_count.size
+		admins_hash[:total]=(admins_count.size / rows.to_i)+1
+		admins_hash[:page]=page
+		admins_hash[:rows]=admins
+		return admins_hash
 	end
 
 	def admin_workload_json(type)
-		@admins=Array.new
+		admins=Array.new
 		case type
 		when "0"
 			#find workload of admin check business
-			@admins=Admin.find_by_sql("select a.id,a.`name`,count(*) y from admins a join businesses b on a.id=b.sys_admin_id where date_format(b.created_at,'%Y-%m-%d')=curdate() group by a.id")
+			admins=Admin.find_by_sql("select a.id,a.`name`,count(*) y from admins a join businesses b on a.id=b.sys_admin_id where date_format(b.created_at,'%Y-%m-%d')=curdate() group by a.id")
 		when "1"
 			#find workload of admin check commodity
-			@admins=Admin.find_by_sql("select a.id,a.`name`,count(*) y from admins a join tickets b on a.id=b.sys_admin_id where date_format(b.created_at,'%Y-%m-%d')=curdate() group by a.id")
+			admins=Admin.find_by_sql("select a.id,a.`name`,count(*) y from admins a join tickets b on a.id=b.sys_admin_id where date_format(b.created_at,'%Y-%m-%d')=curdate() group by a.id")
 		end
-		return @admins
+		return admins
 	end
 
 	def Admin.new_remember_token
