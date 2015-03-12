@@ -1,6 +1,6 @@
-$(".main-content").html("")
 $(".main-content").html("<%= escape_javascript(render('businesses/business_statistics')) %>")
 $(function(){
+
   chart1 = new Highcharts.Chart({
         chart: {
           renderTo: 'container1',
@@ -12,9 +12,6 @@ $(function(){
         credits: {
           enabled: false
         },
-        // subtitle: {
-        //     text: 'Source: WorldClimate.com'
-        // },
         xAxis: {
             categories: [ <%= @categories %> ],
             crosshair: true
@@ -45,18 +42,6 @@ $(function(){
           }
         ]
     });
-  //异步请求数据
-  // $.ajax({
-  //     type:"GET",
-  //     url:'<%= admins_businesses_json_statistics_path %>',
-  //     success:function(data){
-  //         //设置数据
-  //         chart1.series[0].setData(data);  
-  //     },
-  //     error:function(e){
-  //         console.log(e);
-  //     }
-  // });
 });
   
 

@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get 'admins/businesses/statistics' => 'businesses#statistics'
   get 'admins/businesses/json_statistics' => 'businesses#json_statistics'
   get 'admins/scenics/type' =>'scenics#scenics_option'
+  get '/admins/commodity/list' => 'commodity#commodity_list'
+  get '/admins/commodity/json_list' => 'commodity#commodity_json_list'
+  get '/admins/orders/statistics' => 'orders#statistics'
   namespace :admins do
 
   end

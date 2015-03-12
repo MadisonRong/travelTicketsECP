@@ -102,9 +102,9 @@ $(".main-content").append("<%= escape_javascript(render('shared/dialog')) %>")
 				//navButtons
 				jQuery(grid_selector).jqGrid('navGrid',pager_selector,
 					{ 	//navbar options
-						edit: false,
+						edit: true,
 						editicon : 'icon-pencil blue',
-						add: false,
+						add: true,
 						addicon : 'icon-plus-sign purple',
 						del: true,
 						delicon : 'icon-trash red',
