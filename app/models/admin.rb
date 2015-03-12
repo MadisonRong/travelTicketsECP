@@ -9,10 +9,10 @@ class Admin < ActiveRecord::Base
 		when "desc"
 			admins=Admin.where(admin_type: type).page(page).per(rows).order(sort_column).reverse_order
 		end
-		admins_count=Admin.where(admin_type: type)
+		admins_count=Admin.where(admin_type: type).size
 		admins_hash=Hash.new
-		admins_hash[:records]=admins_count.size
-		admins_hash[:total]=(admins_count.size / rows.to_i)+1
+		admins_hash[:records]=admins_count
+		admins_hash[:total]=(admins_count / rows.to_i)+1
 		admins_hash[:page]=page
 		admins_hash[:rows]=admins
 		return admins_hash
