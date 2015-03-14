@@ -91,7 +91,7 @@ end
 def make_orders
 	990.times do |n|
 		order = Order.create!(
-      uid: rand(99)+1,
+      user_id: rand(99)+1,
       money: 1,
       ticket_id: rand(99)+1,
       status: 0,
