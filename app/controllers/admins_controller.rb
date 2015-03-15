@@ -19,7 +19,7 @@ class AdminsController < ApplicationController
     #update admin name
     name=params[:admin][:name]
     unless name.nil?
-      @admin.update_attribute(:name, name)
+      admin.update_attribute(:name, name)
       @result=true
     end
     #update admin password

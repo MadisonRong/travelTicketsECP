@@ -16,7 +16,7 @@ class CommodityController < ApplicationController
 		render json: @commodity_hash
 	end
 
-	def admin_update
+	def pass
 		@result=false
 		case params[:oper]
 		when "del"

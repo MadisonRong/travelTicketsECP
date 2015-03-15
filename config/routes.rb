@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'admins/jsonlist' => 'admins#jsonlist'
   get 'admins/commodity/status_list' => 'commodity#status_list'
   get 'admins/commodity/json_status_list' => 'commodity#json_status_list'
+  post 'admins/commodity/pass' => 'commodity#pass'
   post 'admins/commodity/update' => 'commodity#admin_update'
   get 'admins/businesses/status_list' => 'businesses#status_list'
   get 'admins/businesses/json_status_list' => 'businesses#json_status_list'

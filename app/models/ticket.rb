@@ -1,6 +1,7 @@
 class Ticket < ActiveRecord::Base
 
   belongs_to :business
+  has_many :orders
 
 	def get_json_status_list(admin_id, page, rows, sort_column, sort)
 		sort_column = "id" if sort_column.nil? || sort_column == ""
